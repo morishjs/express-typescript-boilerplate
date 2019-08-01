@@ -3,7 +3,7 @@ import GraphQLHTTP from 'express-graphql';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import * as path from 'path';
 import { buildSchema } from 'type-graphql';
-import Container from 'typedi';
+import { Container } from 'typedi';
 
 import { env } from '../env';
 import { getErrorCode, getErrorMessage, handlingErrors } from '../lib/graphql';
@@ -14,6 +14,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
 
         const schema = await buildSchema({
             resolvers: env.app.dirs.resolvers,
+            container: Container,
             // automatically create `schema.gql` file with schema definition in current folder
             emitSchemaFile: path.resolve(__dirname, '../api', 'schema.gql'),
         });
